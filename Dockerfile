@@ -5,7 +5,7 @@ WORKDIR /app
 # 1. Copy only the Gradle wrapper files and build definition first.
 #    This allows Docker to cache the dependency downloads.
 COPY gradlew .
-COPY gradle/ wrapper/
+COPY gradle/ /app/gradle/
 COPY build.gradle .
 # If you have a settings.gradle (for multi-module projects), copy it here as well
 # COPY settings.gradle . 
