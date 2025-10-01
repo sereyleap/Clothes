@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+<head th:fragment="head">
+<style>
+.footer {
+	background: url('img/10.jpg') no-repeat center center;
+	/* Update this path */
+	background-size: cover;
+	position: relative; /* Ensure this is present for overlay to work */
+	/* Add padding-top if needed to push content down from the top edge of the background */
+	padding-top: 100px; /* Example: adjust as needed */
+}
+</style>
+<meta charset="utf-8">
+<title>Clothing</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="Free Website Template" name="keywords">
+<meta content="Free Website Template" name="description">
+
+<!-- Favicon -->
+<link href="img/favicon.ico" rel="icon">
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&family=Roboto:wght@400;500;700&display=swap"
+	rel="stylesheet">
+
+<!-- Font Awesome -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+	rel="stylesheet" />
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="css/style.min.css" rel="stylesheet">
+</head>
+
+<body>
+	<!-- Navbar Start -->
+	<div class="container-fluid p-0 nav-bar" th:fragment="navbar"
+		th:with="
+																			home=${home}?:'',
+																			about=${about}?:'',
+																			service=${service}?:'',
+																			menu=${menu}?:'',
+																			reservation=${reservation}?:'',
+																			testimonial=${testimonial}?:'',
+																			contact=${contact}?:''
+		">
+		<nav class="navbar navbar-expand-lg bg-none navbar-dark py-3">
+			<a th:href="@{/home}" class="navbar-brand px-lg-4 m-0">
+				<h1 class="m-0 display-4 text-uppercase text-white">CLOTHES</h1>
+			</a>
+			<button type="button" class="navbar-toggler" data-toggle="collapse"
+				data-target="#navbarCollapse">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse justify-content-between"
+				id="navbarCollapse">
+				<div class="navbar-nav ml-auto p-4">
+					<a th:href="@{/home}" th:class="'nav-item nav-link ' + ${home}">Home</a>
+					<a th:href="@{/about}" th:class="'nav-item nav-link ' + ${about}">About</a>
+					<a th:href="@{/service}"
+						th:class="'nav-item nav-link ' + ${service}">Service</a> <a
+						th:href="@{/menu}" th:class="'nav-item nav-link ' + ${menu}">Menu</a>
+					<div class="nav-item dropdown">
+						<a href="#"
+							th:class="'nav-link dropdown-toggle '+ ${reservation} + ${testimonial}"
+							data-toggle="dropdown">Pages</a>
+						<div class="dropdown-menu text-capitalize">
+							<a th:href="@{/reservation}"
+								th:class="'dropdown-item ' + ${reservation}">Reservation</a> <a
+								th:href="@{/testimonial}"
+								th:class="'dropdown-item ' + ${testimonial}">Testimonial</a>
+						</div>
+					</div>
+					<a th:href="@{/contact}"
+						th:class="'nav-item nav-link ' + ${contact}">Contact</a>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<!-- Navbar End -->
+
+	<!-- Page Header Start -->
+	<div
+		class="container-fluid page-header mb-5 position-relative overlay-bottom"
+		th:fragment="header" th:with="
+									text=${text}
+		">
+		<div
+			class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5"
+			style="min-height: 400px; background: url('img/unnamed.png') center center/cover no-repeat;">
+			<h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase"
+				th:text="${text}">About Us</h1>
+			<div class="d-inline-flex mb-lg-5">
+				<p class="m-0 text-white">
+					<a class="text-white" href="">Home</a>
+				</p>
+				<p class="m-0 text-white px-2">/</p>
+				<p class="m-0 text-white" th:text="${text}">About Us</p>
+			</div>
+		</div>
+
+	</div>
+	<!-- Page Header End -->
+
+	<!-- Reservation Start -->
+	<div class="container-fluid py-5" th:fragment="booking">
+		<div class="container">
+			<div class="section-title">
+				<h4 class="text-primary text-uppercase"
+					style="letter-spacing: 5px; color: gold; text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6); background: #222; padding: 15px 30px; border-radius: 10px; display: inline-block;">Reservation</h4>
+				<h1 class="display-4">Booking</h1>
+			</div>
+			<div class="reservation position-relative overlay-top overlay-bottom"
+				style="background: url('img/2.jpg') no-repeat center center; background-size: cover;">
+				<div class="row align-items-center">
+					<div class="col-lg-6 my-5 my-lg-0">
+						<div class="p-5">
+							<div class="mb-4">
+								<h1 class="display-3 text-primary"
+									style="color: gold; text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6); background: #222; padding: 15px 30px; border-radius: 10px; display: inline-block;">
+									50% OFF</h1>
+								<h1 class="text-white"
+									style="color: gold; text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);">
+									For Online Reservation</h1>
+							</div>
+							<p class="text-white"
+								style="color: gold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);">Lorem
+								justo clita erat lorem labore ea, justo dolor lorem ipsum ut sed
+								eos, ipsum et dolor kasd sit ea justo. Erat justo sed sed diam.
+								Ea et erat ut sed diam sea</p>
+							<ul class="list-inline text-white m-0"
+								style="color: gold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);">
+								<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Lorem
+									ipsum dolor sit amet</li>
+								<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Lorem
+									ipsum dolor sit amet</li>
+								<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Lorem
+									ipsum dolor sit amet</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="text-center p-5"
+							style="background: rgba(0, 0, 0, 0.7);">
+							<h1 class="text-white mb-4 mt-5">Book Your Styling Session</h1>
+							<form class="mb-5" th:object="${booked}" th:action="@{/success}"
+								th:method="post">
+								<div class="form-group">
+									<input type="text"
+										class="form-control bg-transparent border-primary p-4 text-white"
+										placeholder="Your Name" required="required" th:field="*{name}"
+										style="color: white;" />
+								</div>
+								<div class="form-group">
+									<input type="email"
+										class="form-control bg-transparent border-primary p-4 text-white"
+										placeholder="Your Email" required="required"
+										th:field="*{email}" style="color: white;" />
+								</div>
+								<div class="form-group">
+									<input type="number"
+										class="form-control bg-transparent border-primary p-4 text-white"
+										placeholder="Phone Number" required="required"
+										th:field="*{phoneNumber}" style="color: white;" />
+								</div>
+								<div class="form-group">
+									<div class="date" id="date" data-target-input="nearest">
+										<input type="text"
+											class="form-control bg-transparent border-primary p-4 datetimepicker-input text-white"
+											placeholder="Preferred Date" data-target="#date"
+											data-toggle="datetimepicker" th:field="*{date}"
+											style="color: white;" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="time" id="time" data-target-input="nearest">
+										<input type="text"
+											class="form-control bg-transparent border-primary p-4 datetimepicker-input text-white"
+											placeholder="Preferred Time" data-target="#time"
+											data-toggle="datetimepicker" th:field="*{time}"
+											style="color: white;" />
+									</div>
+								</div>
+								<div class="form-group">
+									<select
+										class="custom-select bg-transparent border-primary px-4 text-white"
+										style="height: 49px; color: white;" th:field="*{person}">
+										<option selected value="0" style="color: black;">Number
+											of Guests</option>
+										<option value="1" style="color: black;">1 Person</option>
+										<option value="2" style="color: black;">2 People</option>
+										<option value="3" style="color: black;">3 People</option>
+										<option value="4" style="color: black;">4 People</option>
+										<option value="5" style="color: black;">5 People</option>
+										<option value="10" style="color: black;">6+ People</option>
+									</select>
+								</div>
+
+								<div>
+									<button class="btn btn-primary btn-block font-weight-bold py-3"
+										type="submit">Confirm Booking</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Reservation End -->
+
+	<!-- Footer Start -->
+	<footer style="background: #222; color: #fff; padding: 40px 0;">
+		<div
+			style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between;">
+
+			<!-- About -->
+			<div style="flex: 1; min-width: 250px; margin: 10px;">
+				<h3 style="color: #f39c12;">About Us</h3>
+				<p>We provide the best services with passion and dedication. Our
+					mission is to bring quality and satisfaction to our clients.</p>
+			</div>
+
+			<!-- Quick Links -->
+			<div style="flex: 1; min-width: 200px; margin: 10px;">
+				<h3 style="color: #f39c12;">Quick Links</h3>
+				<ul style="list-style: none; padding: 0;">
+					<li><a href="#" style="color: #fff; text-decoration: none;">Home</a></li>
+					<li><a href="#" style="color: #fff; text-decoration: none;">About</a></li>
+					<li><a href="#" style="color: #fff; text-decoration: none;">Services</a></li>
+					<li><a href="#" style="color: #fff; text-decoration: none;">Contact</a></li>
+				</ul>
+			</div>
+
+			<!-- Contact -->
+			<div style="flex: 1; min-width: 250px; margin: 10px;">
+				<h3 style="color: #f39c12;">Contact</h3>
+				<p>Email: info@example.com</p>
+				<p>Phone: +123 456 789</p>
+				<p>Address: 123 Street, City, Country</p>
+				<div style="margin-top: 10px;">
+					<a href="#" style="color: #fff; margin-right: 10px;">🌐</a> <a
+						href="#" style="color: #fff; margin-right: 10px;">📘</a> <a
+						href="#" style="color: #fff; margin-right: 10px;">🐦</a> <a
+						href="#" style="color: #fff;">📸</a>
+				</div>
+			</div>
+
+		</div>
+
+		<div
+			style="text-align: center; margin-top: 20px; border-top: 1px solid #444; padding-top: 10px;">
+			<p>&copy; 2025 Your Company. All rights reserved.</p>
+		</div>
+	</footer>
+	<!-- Footer End -->
+
+	<!-- Back to Top -->
+	<div th:fragment="script" th:remove="tag">
+		<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
+			class="fa fa-angle-double-up"></i></a>
+
+
+		<!-- JavaScript Libraries -->
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+		<script th:src="@{/lib/easing/easing.min.js}"></script>
+		<script th:src="@{/lib/waypoints/waypoints.min.js}"></script>
+		<script th:src="@{/lib/owlcarousel/owl.carousel.min.js}"></script>
+		<script th:src="@{/lib/tempusdominus/js/moment.min.js}"></script>
+		<script th:src="@{/lib/tempusdominus/js/moment-timezone.min.js}"></script>
+		<script
+			th:src="@{/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js}"></script>
+
+		<!-- Contact Javascript File -->
+		<script th:src="@{/mail/jqBootstrapValidation.min.js}"></script>
+		<script th:src="@{/mail/contact.js}"></script>
+
+		<!-- Template Javascript -->
+		<script th:src="@{/js/main.js}"></script>
+	</div>
+</body>
+</html>
+this too
