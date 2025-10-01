@@ -1,36 +1,38 @@
-# Stage 1: Build JAR
-FROM eclipse-temurin:21-jdk AS build
+# syntax=docker/dockerfile:1
+
+# -------- Build stage --------
+FROM eclipse-temurin:21-jdk-alpine AS build
+WORKDIR /workspace
+
+# Install bash and helpers
+RUN apk add --no-cache bash dos2unix
+
+# Copy Gradle wrapper and build files first to cache dependencies
+COPY gradlew ./
+COPY gradle ./gradle
+COPY build.gradle settings.gradle ./
+RUN dos2unix ./gradlew && chmod +x ./gradlew
+
+# Warm up Gradle dependency cache (no source yet)
+RUN ./gradlew --no-daemon build -x test || true
+
+# Copy the rest of the source code
+COPY . .
+
+# Build a bootable jar (skip tests for faster/safer CI build)
+RUN dos2unix ./gradlew && chmod +x ./gradlew && ./gradlew --no-daemon clean bootJar -x test
+
+# -------- Runtime stage --------
+FROM eclipse-temurin:21-jre-alpine
+ENV SPRING_PROFILES_ACTIVE=render
+ENV JAVA_OPTS=""
 WORKDIR /app
 
-# 1. Copy only the Gradle wrapper files and build definition first.
-#    This allows Docker to cache the dependency downloads.
-COPY gradlew .
-COPY gradle/ /app/gradle/
-COPY build.gradle .
-# If you have a settings.gradle (for multi-module projects), copy it here as well
-# COPY settings.gradle . 
+# Copy built jar
+COPY --from=build /workspace/build/libs/*.jar /app/app.jar
 
-# 2. Make the wrapper executable
-RUN chmod +x gradlew
-
-# 3. Download dependencies (this is cached if the above files haven't changed)
-RUN ./gradlew dependencies --no-daemon
-
-# 4. Copy the rest of the project source code (src)
-COPY src src/
-
-# 5. Build the JAR (clean is often unnecessary here since this is a fresh build stage)
-RUN ./gradlew build -x test --no-daemon
-
-# Stage 2: Run JAR (Keep this stage as you have it)
-FROM eclipse-temurin:21-jdk
-WORKDIR /app
-
-# Copy JAR from build stage
-COPY --from=build /app/build/libs/*.jar app.jar
-
-# Expose port
+# Render provides PORT env var
+ENV PORT=8080
 EXPOSE 8080
 
-# Run Spring Boot app
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["sh", "-c", "java $JAVA_OPTS -Dserver.port=$PORT -jar /app/app.jar"]
